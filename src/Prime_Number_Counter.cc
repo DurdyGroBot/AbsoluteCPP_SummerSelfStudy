@@ -44,5 +44,6 @@ int main(int argc, char *argv[]){
     }
     cout << "\n--------------------------------------------------\n";
     cout << "There are " << numberOfPrimes << " prime numbers." << endl;
+
     return 0;
 }
