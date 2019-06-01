@@ -33,13 +33,8 @@ int main(int argc, char *argv[]){
     cout << "-------------------\n";
     for(int n = beginningOfRange; n < (endOfRange+1); n++){
         cout << "TESTING: " << n << endl;
-        for(int test = n;2 < (test-1); test++){
-            if (n%(test-1) == 0 && (test != n)){
-                cout << "\nPRIME\n";
-                numberOfPrimes++;
-            } else {
-                cout << "\nNOT PRIME\n";
-            }
+        for(int test = 0; test < (n-1); test++){
+            cout << "test number: " << test << endl;
         }
     }
     cout << "\n--------------------------------------------------\n";
