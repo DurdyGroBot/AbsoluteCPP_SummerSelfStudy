@@ -16,7 +16,7 @@ using std::cin;
 using std::endl;
 
 int main(int argc, char *argv[]){
-    cout << "\nEnter the range for which you would like to count prime numbers.\n";
+    cout << "\nEnter the range for which you would like to count prime numbers starting with a minimum of 3.\n";
     int beginningOfRange, endOfRange;
     cout << "\nBeginning of Range: ";
     cin >> beginningOfRange;
@@ -30,15 +30,29 @@ int main(int argc, char *argv[]){
     }
     int numberOfPrimes = 0;
     cout << "\n   PRIME NUMBERS   \n";
-    cout << "-------------------\n";
+    cout << "-------------------\n\n";
     for(int n = beginningOfRange; n < (endOfRange+1); n++){
-        cout << "TESTING: " << n << endl;
-        for(int test = 0; test < (n-1); test++){
-            cout << "test number: " << test << endl;
+        if((n%2 == 0) && (n != 2)){
+            continue;
+        } else if(n == 2){
+            cout << n << endl;
+            numberOfPrimes++;
+            continue;
+        } else if(n == 0 || n == 1){
+            continue;
+        }
+        for(int test = 2; test <= (n-1); test++){
+            if(n%test == 0){
+                break;
+            }else if(n == (test+1)){
+                cout << n << endl;
+                numberOfPrimes++;
+            }
         }
     }
     cout << "\n--------------------------------------------------\n";
-    cout << "There are " << numberOfPrimes << " prime numbers." << endl;
+    cout << "There are " << numberOfPrimes << " prime numbers ";
+    cout << "between " << beginningOfRange << " & " << endOfRange << endl;
 
     return 0;
 }
