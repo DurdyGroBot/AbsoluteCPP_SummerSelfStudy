@@ -21,7 +21,7 @@ using std::ifstream;
 using std::string;
 using std::ios;
 
-int main(int argc, char *argv[]){
+int main(int argc, char *argv[]) {
 
     ifstream inputStream;
     cout << "\nPlease enter the path for the file to be read > ";
@@ -39,41 +39,42 @@ int main(int argc, char *argv[]){
     int numberOf_Sevens = 0;
     int numberOf_Eights = 0;
     int numberOf_Nines = 0;
-    while(inputStream >> text){
+    while (inputStream >> text) {
         totalNumberCount++;
-        if(text[0] == '1'){
+        if (text[0] == '1') {
             numberOf_Ones++;
-        } else if(text[0] == '2'){
+        } else if (text[0] == '2') {
             numberOf_Twos++;
-        } else if(text[0] == '3'){
+        } else if (text[0] == '3') {
             numberOf_Threes++;
-        } else if(text[0] == '4'){
+        } else if (text[0] == '4') {
             numberOf_Fours++;
-        } else if(text[0] == '5'){
+        } else if (text[0] == '5') {
             numberOf_Fives++;
-        } else if(text[0] == '6'){
+        } else if (text[0] == '6') {
             numberOf_Sixes++;
-        } else if(text[0] == '7'){
+        } else if (text[0] == '7') {
             numberOf_Sevens++;
-        } else if(text[0] == '8'){
+        } else if (text[0] == '8') {
             numberOf_Eights++;
         } else {
             numberOf_Nines++;
         }
     }
+    inputStream.close();
     cout.setf(ios::fixed);
     cout.setf(ios::showpoint);
     cout.precision(1);
     cout << "\nTotal Number of Numbers: " << totalNumberCount << endl;
-    cout << "\nOne appeared " << numberOf_Ones/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nTwo appeared " << numberOf_Twos/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nThree appeared " << numberOf_Threes/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nFour appeared " << numberOf_Fours/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nFive appeared " << numberOf_Fives/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nSix appeared " << numberOf_Sixes/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nSeven appeared " << numberOf_Sevens/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nEight appeared " << numberOf_Eights/totalNumberCount*100 << "% of the time." << endl;
-    cout << "\nNine appeared " << numberOf_Nines/totalNumberCount*100 << "% of the time." << endl;
+    cout << "\nOne appeared " << numberOf_Ones / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nTwo appeared " << numberOf_Twos / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nThree appeared " << numberOf_Threes / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nFour appeared " << numberOf_Fours / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nFive appeared " << numberOf_Fives / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nSix appeared " << numberOf_Sixes / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nSeven appeared " << numberOf_Sevens / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nEight appeared " << numberOf_Eights / totalNumberCount * 100 << "% of the time." << endl;
+    cout << "\nNine appeared " << numberOf_Nines / totalNumberCount * 100 << "% of the time." << endl;
 
     return 0;
 }
