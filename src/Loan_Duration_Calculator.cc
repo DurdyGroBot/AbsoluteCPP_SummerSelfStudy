@@ -18,6 +18,7 @@
 //the debt is small, but do not forget the interest. If you owe $50, then your monthly payment
 //of $50 will not pay off your debt, although it will come close. One month’s interest
 //on $50 is only 75 cents.*/
+
 #include <iostream>
 #include <string>
 
