@@ -48,12 +48,8 @@ int main(int argc, char *argv[]){
 }
 
 double liters_to_Gallons_to_MPG(double litersConsumed, double milesTraveled){
-
     const double gallonsPerLiter = 0.264179;
-    double gallonsConsumed = (gallonsPerLiter * litersConsumed);
-    double milesPerGallon = (milesTraveled / gallonsConsumed);
-
-    return(milesPerGallon);
+    return(milesTraveled / (gallonsPerLiter * litersConsumed));
 }
 
 
