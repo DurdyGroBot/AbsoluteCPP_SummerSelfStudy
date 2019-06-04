@@ -7,6 +7,9 @@
  * number of liters per gallon.*/
 
 #include <iostream>
+#include <cctype>
+#include <stdio.h>
+
 using std::cout;
 using std::cin;
 using std::endl;
@@ -15,22 +18,31 @@ using std::ios;
 double liters_to_Gallons_to_MPG(double litersConsumed, double milesTraveled);
 
 int main(int argc, char *argv[]){
+    char c0ntinue = 'y';
+    while(c0ntinue == 'y'){
+        cout << "\n----------------------\n";
+        cout << "\nLiters Comsumed: >";
+        double litersConsumed;
+        cin >> litersConsumed;
+        cout << "\n----------------------\n";
+        cout << "\nMiles Traveled: >";
+        double milesTraveled;
+        cin >> milesTraveled;
+        cout << "\n----------------------\n";
+        double milesPerGallon = liters_to_Gallons_to_MPG(litersConsumed, milesTraveled);
+        cout.setf(ios::fixed);
+        cout.setf(ios::showpoint);
+        cout.precision(1);
+        cout << "\nMiles Per Gallon: " << milesPerGallon << endl;
+        cout << "\n----------------------\n";
+        cout << "Would you like to continue? y/n >";
+        cin >> c0ntinue;
+        c0ntinue = (tolower(c0ntinue));
+        if(c0ntinue == 'n'){
+            cout << "\nGoodbye\n" << endl;
+        }
 
-    cout << "\n----------------------\n";
-    cout << "\nLiters Comsumed: >";
-    double litersConsumed;
-    cin >> litersConsumed;
-    cout << "\n----------------------\n";
-    cout << "\nMiles Traveled: >";
-    double milesTraveled;
-    cin >> milesTraveled;
-    cout << "\n----------------------\n";
-    double milesPerGallon = liters_to_Gallons_to_MPG(litersConsumed,milesTraveled);
-    cout.setf(ios::fixed);
-    cout.setf(ios::showpoint);
-    cout.precision(1);
-    cout << "\nMiles Per Gallon: " << milesPerGallon << endl;
-    cout << "\n----------------------\n";
+    }
 
     return 0;
 }
@@ -43,7 +55,5 @@ double liters_to_Gallons_to_MPG(double litersConsumed, double milesTraveled){
 
     return(milesPerGallon);
 }
-
-
 
 
