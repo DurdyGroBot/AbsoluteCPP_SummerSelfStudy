@@ -18,23 +18,29 @@
 
 #include <iostream>
 #include <string>
+#include <cmath>
 
 std::string getCurrentMonth();
-
 //preCondition: User can enter a string
 //postCondition: Returns the current month as a string
-int getMonthOrder(std::string month_String);
 
+int getMonthOrder(std::string month_String);
 //preCondition: month_string is initialized with a properly spelled
 //calender month.
 //postCondition: returns the current month represented as an integer
-void getData(int current_Month, int *month_Order, double averageMonthlyRainFall[], double lastYearsRainFallData[]);
 
+void getData(int current_Month, int *month_Order, double averageMonthlyRainFall[], double lastYearsRainFallData[]);
 //preCondition: month_string is initialized with a properly spelled
 //calender month.
 //postCondition: prints the twelve calender months starting with the current month
 //and works backwards
+
 void calculateDifference(double averageMonthlyRainFall[], double lastYearsRainFallData[], double difference[]);
+//
+//
+//
+
+void printData(int month_Order[], double lastYearsRainFallData[], double difference[]);
 //
 //
 //
@@ -45,6 +51,8 @@ int main(int argc, char *argv[]) {
     double lastYearsRainFallData[12], averageMonthlyRainFall[12], difference[12];
     getData(current_Month, month_Order, averageMonthlyRainFall, lastYearsRainFallData);
     calculateDifference(averageMonthlyRainFall, lastYearsRainFallData, difference);
+    std::cout << "\n\n\n";
+    printData(month_Order, lastYearsRainFallData, difference);
     return 0;
 }
 
@@ -91,7 +99,7 @@ void getData(int current_Month, int month_Order[], double averageMonthlyRainFall
         }
     }
     std::cout << std::endl << "Please enter rainfall data for the last 12 months:" << std::endl;
-    std::cout << "---------------------------------------------------------" << std::endl;
+    std::cout << "---------------------------------------------------------\n";
     double rainData = 0;
     for (int i = 0; i < 12; i++) {
         if (month_Order[i] == 1) {
@@ -123,13 +131,52 @@ void getData(int current_Month, int month_Order[], double averageMonthlyRainFall
         std::cin >> averageMonthlyRainFall[i];
         std::cout << "Actual: ";
         std::cin >> lastYearsRainFallData[i];
-        std::cout << "\n---------------------------------------------------------\n" << std::endl;
+        std::cout << "---------------------------------------------------------" << std::endl;
     }
 }
 
 void calculateDifference(double averageMonthlyRainFall[], double lastYearsRainFallData[], double difference[]) {
     for (int i = 0; i < 12; i++) {
         difference[i] = (averageMonthlyRainFall[i] - lastYearsRainFallData[i]);
+    }
+}
+
+void printData(int month_Order[], double lastYearsRainFallData[], double difference[]) {
+    std::cout << "         ACTUAL RAINFALL     DEVIATION FROM AVERAGE\n";
+    for (int i = 0; i < 12; i++) {
+        if (month_Order[i] == 1) {
+            std::cout << "January  ";
+        } else if (month_Order[i] == 2) {
+            std::cout << "February ";
+        } else if (month_Order[i] == 3) {
+            std::cout << "March    ";
+        } else if (month_Order[i] == 4) {
+            std::cout << "April    ";
+        } else if (month_Order[i] == 5) {
+            std::cout << "May      ";
+        } else if (month_Order[i] == 6) {
+            std::cout << "June     ";
+        } else if (month_Order[i] == 7) {
+            std::cout << "July     ";
+        } else if (month_Order[i] == 8) {
+            std::cout << "August   ";
+        } else if (month_Order[i] == 9) {
+            std::cout << "September";
+        } else if (month_Order[i] == 10) {
+            std::cout << "October  ";
+        } else if (month_Order[i] == 11) {
+            std::cout << "November ";
+        } else {
+            std::cout << "December ";
+        }
+        std::cout << "       " << lastYearsRainFallData[i] << "                    ";
+        if(difference[i] < 0){
+            std::cout << "- " << std::abs(difference[i]) << std::endl;
+        } else if(difference[i] == 0){
+            std::cout << difference[i] << std::endl;
+        } else {
+            std::cout << "+ " << difference[i] << std::endl;
+        }
     }
 }
 
