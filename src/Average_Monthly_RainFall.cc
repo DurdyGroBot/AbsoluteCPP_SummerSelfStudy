@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
     getData(current_Month, month_Order, averageMonthlyRainFall, lastYearsRainFallData);
     calculateDifference(averageMonthlyRainFall, lastYearsRainFallData, difference);
     std::cout << "\n\n\n";
-    printData(month_Order, lastYearsRainFallData, difference);
+    printDataTable(month_Order, lastYearsRainFallData, difference);
     return 0;
 }
 
