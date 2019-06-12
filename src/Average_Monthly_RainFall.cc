@@ -40,7 +40,7 @@ void calculateDifference(double averageMonthlyRainFall[], double lastYearsRainFa
 //
 //
 
-void printData(int month_Order[], double lastYearsRainFallData[], double difference[]);
+void printDataTable(int *month_Order, double *lastYearsRainFallData, double *difference);
 //
 //
 //
