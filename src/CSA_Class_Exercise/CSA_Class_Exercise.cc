@@ -18,4 +18,57 @@
  * for any of the fruits or vegetables selected for the box. After the user is done with substitutions output the final
  * contents of the box to be delivered.*/
 
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+
+class BoxOfProduce{
+private:
+    std::string boxOfProduce[3];
+public:
+    void randomBox(), selectBox(), displayConents(),
+            displayProduceList(std::string filePath);
+    std::string getProduceList();
+};
+
+int main(int argc, char *argv[]){
+    BoxOfProduce thisWeek;
+    std::string filePath = thisWeek.getProduceList();
+    thisWeek.displayProduceList(filePath);
+    std::srand(std::time(0));//use current time as seed for random generator!
+    int random_Variable = (std::rand()%5);
+    std::cout << random_Variable << std::endl;
+    return 0;
+}
+
+void BoxOfProduce::displayProduceList(std::string filePath) {
+    std::ifstream produceList;
+    produceList.open(filePath);
+    std::string list;
+    std::string produce[5];
+    for(int i = 0; produceList >> list; i++){
+        produce[i] = list;
+    }
+    std::cout << std::endl << "THIS WEEKS PRODUCE LIST:" << std::endl;
+    std::cout << "-------------------------" << std::endl;
+    for(int j = 0; j < 5; j++){
+        std::cout << '-' << produce[j] << std::endl;
+    }
+}
+
+std::string BoxOfProduce::getProduceList(){
+    std::cout << "Please enter the file path for this weeks produce list  > ";
+    std::string filePath;
+    std::cin >> filePath;
+    return(filePath);
+}
+
+void randomBox(){
+    std::srand(std::time(0));//use current time as seed for random generator!
+    int random_Variable = (std::rand()%5);
+    std::cout << random_Variable << std::endl;
+}
+
+
 
