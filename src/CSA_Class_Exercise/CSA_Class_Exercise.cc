@@ -23,22 +23,23 @@
 #include <ctime>
 #include <fstream>
 
-class BoxOfProduce{
+class BoxOfProduce {
 private:
     std::string boxOfProduce[3];
+    std::string weeklyProduceSelection[5];
 public:
-    void randomBox(), selectBox(), displayConents(),
-            displayProduceList(std::string filePath);
+    void randomBox(), selectBox(), displayConents(), displayProduceList(std::string filePath);
+
     std::string getProduceList();
 };
 
-int main(int argc, char *argv[]){
-    BoxOfProduce thisWeek;
-    std::string filePath = thisWeek.getProduceList();
-    thisWeek.displayProduceList(filePath);
-    std::srand(std::time(0));//use current time as seed for random generator!
-    int random_Variable = (std::rand()%5);
-    std::cout << random_Variable << std::endl;
+int main(int argc, char *argv[]) {
+    BoxOfProduce customerX;
+    std::string filePath = customerX.getProduceList();
+    customerX.displayProduceList(filePath);
+    customerX.randomBox();
+    customerX.displayConents();
+    customerX.selectBox();
     return 0;
 }
 
@@ -46,29 +47,72 @@ void BoxOfProduce::displayProduceList(std::string filePath) {
     std::ifstream produceList;
     produceList.open(filePath);
     std::string list;
-    std::string produce[5];
-    for(int i = 0; produceList >> list; i++){
-        produce[i] = list;
+    for (int i = 0; produceList >> list; i++) {
+        weeklyProduceSelection[i] = list;
     }
     std::cout << std::endl << "THIS WEEKS PRODUCE LIST:" << std::endl;
     std::cout << "-------------------------" << std::endl;
-    for(int j = 0; j < 5; j++){
-        std::cout << '-' << produce[j] << std::endl;
+    for (int j = 0; j < 5; j++) {
+        std::cout << '-' << weeklyProduceSelection[j] << std::endl;
     }
 }
 
-std::string BoxOfProduce::getProduceList(){
+std::string BoxOfProduce::getProduceList() {
     std::cout << "Please enter the file path for this weeks produce list  > ";
     std::string filePath;
     std::cin >> filePath;
-    return(filePath);
+    return (filePath);
 }
 
-void randomBox(){
+void BoxOfProduce::randomBox() {
     std::srand(std::time(0));//use current time as seed for random generator!
-    int random_Variable = (std::rand()%5);
-    std::cout << random_Variable << std::endl;
+    for (int i = 0; i < 3; i++) {
+        boxOfProduce[i] = weeklyProduceSelection[(std::rand() % 5)];
+    }
 }
+
+void BoxOfProduce::displayConents() {
+    std::cout << std::endl << "THIS WEEKS BOX" << std::endl;
+    std::cout << "-------------------------" << std::endl;
+    for (std::string x : boxOfProduce) {
+        std::cout << '-' << x << std::endl;
+    }
+}
+
+void BoxOfProduce::selectBox() {
+    char c0ntinue = 'y';
+    std::cout << std::endl << "Would you like to alter your box this week? y/n  > ";
+    std::cin >> c0ntinue;
+    c0ntinue = char(tolower(c0ntinue));
+    while(c0ntinue == 'y') {
+        std::cout << std::endl << "Which item would you like to replace?" << std::endl;
+        std::string replace;
+        std::cin >> replace;
+        std::cout << std::endl << "What would you like to replace it with?  > ";
+        std::string replacement;
+        std::cin >> replacement;
+        for (int i = 0; i < 3; i++) {
+            if (boxOfProduce[i] == replace) {
+                boxOfProduce[i] = replacement;
+                break;
+            }
+        }
+        for (std::string x : boxOfProduce) {
+            std::cout << '-' << x << std::endl;
+        }
+        std::cout << std::endl << "Would you like to alter anything else? y/n  > ";
+        std::cin >> c0ntinue;
+        c0ntinue = char(tolower(c0ntinue));
+    }
+    if (c0ntinue == 'n') {
+        std::cout << std::endl << "GoodBye!" << std::endl;
+    }
+}
+
+
+
+
+
 
 
 
