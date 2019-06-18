@@ -17,7 +17,7 @@ private:
     int month;
 public:
     Month();
-    Month(char& first, char& second, char& third);
+    Month(char first, char second, char third);
     Month(int month_As_Int);
     void input(int month_As_Int);
     void input(std::string month_As_String);
@@ -27,16 +27,34 @@ public:
 };
 
 int main(int argc, char *argv[]){
-    Month current_Month;
-    int month_As_Int;
-    std::string month_As_String;
-    current_Month.input(month_As_Int);
-    current_Month.output_String();
-    current_Month.output_Int();
-    current_Month.input(month_As_String);
-    current_Month.output_String();
-    current_Month.output_Int();
-    current_Month.next_Month();
+    Month current_Month_Int(12);
+    Month current_Month_Chars('d','e','c');
+    Month default_Current_Month;
+    Month input_Test_Current_Month;
+    int curren_Month_Int;
+    std::string current_Month_String;
+    std::cout << std::endl << "The following is the constructor that initializes with an integer with the method that "
+                              "outputs a string: "<< std::endl;
+    current_Month_Int.output_String();
+    std::cout << std::endl << "The following is the constructor that initializes with three characters with the method "
+                              "that outputs an integer: " << std::endl;
+    current_Month_Chars.output_Int();
+    std::cout << std::endl << "The Following is the Default Constructor Initializations with the methods that output "
+                              "a string or an integer" << std::endl;
+    default_Current_Month.output_Int();
+    default_Current_Month.output_String();
+    input_Test_Current_Month.input(curren_Month_Int);
+    input_Test_Current_Month.input(current_Month_String);
+    input_Test_Current_Month.output_String();
+    input_Test_Current_Month.output_Int();
+    std::cout << std::endl << "The following tests the next month function with the output methods" << std::endl;
+    std::cout << "This month is ";
+    input_Test_Current_Month.output_Int();
+    input_Test_Current_Month.output_String();
+    std::cout << "Next month is ";
+    input_Test_Current_Month.next_Month();
+    input_Test_Current_Month.output_Int();
+    input_Test_Current_Month.output_String();
     return 0;
 }
 
@@ -44,7 +62,7 @@ Month::Month() {
     month = 1;
 };
 
-Month::Month(char &first, char &second, char &third) {
+Month::Month(char first, char second, char third) {
     first = char(tolower(first));
     second = char(tolower(second));
     third = char(tolower(third));
@@ -126,44 +144,10 @@ void Month::output_String() const {
 }
 
 Month Month::next_Month(){
-    if(month == 1){
-        std::cout << "Next month is February" << std::endl;
-        return(0);
-    }else if(month == 2){
-        std::cout << "Next month is March" << std::endl;
-        return(0);
-    }else if(month == 3){
-        std::cout << "Next month is April" << std::endl;
-        return(0);
-    }else if(month == 4){
-        std::cout << "Next month is May" << std::endl;
-        return(0);
-    }else if(month == 5){
-        std::cout << "Next month is June" << std::endl;
-        return(0);
-    }else if(month == 6){
-        std::cout << "Next month is July" << std::endl;
-        return(0);
-    }else if(month == 7){
-        std::cout << "Next month is August" << std::endl;
-        return(0);
-    }else if(month == 8){
-        std::cout << "Next month is September" << std::endl;
-        return(0);
-    }else if(month == 9){
-        std::cout << "Next month is October" << std::endl;
-        return(0);
-    }else if(month == 10){
-        std::cout << "Next month is November" << std::endl;
-        return(0);
-    }else if(month == 11){
-        std::cout << "Next month is December" << std::endl;
-        return(0);
-    }else{
-        std::cout << "Next month is January" << std::endl;
-        return(0);
+    if(month == 12){
+        month = 1;
+    } else{
+        month++;
     }
+    return(month);
 }
-
-
-
