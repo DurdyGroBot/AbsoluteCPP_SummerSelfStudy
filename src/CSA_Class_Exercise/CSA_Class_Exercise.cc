@@ -24,26 +24,47 @@
 #include <fstream>
 
 class BoxOfProduce {
+
 private:
     std::string boxOfProduce[3];
     std::string weeklyProduceSelection[5];
+
+    std::string format_Input(std::string user_Input);
+    //precondition: user_Input is a string variable
+    //postcondition: the first letter of user_Input will be upperCase.
+    //the rest of the letters will be lowerCase.
+
+    std::string y_n_Error_Checking(std::string c0ntinue);
+    //checks to make sure user input is valid for y/n option
+
 public:
-    void randomBox(), selectBox(), displayConents(), displayProduceList(std::string filePath);
+    void randomBox();
+    //generates an array of strings from a list of produce
+
+    void selectBox();
+    //allows user to alter the randomly generated box
+
+    void displayContents();
+    //displays whats in the box
+
+    void displayProduceList(std::string filePath);
+    //displays a produce list from a given filePath
 
     std::string getProduceList();
+    //prompts user for filePath to produce list
 };
 
 int main(int argc, char *argv[]) {
     BoxOfProduce customerX;
-    std::string filePath = customerX.getProduceList();
-    customerX.displayProduceList(filePath);
+    //std::string filePath = customerX.getProduceList();
+    customerX.displayProduceList("/Users/durdy/CLionProjects/AbsoluteCPP_SummerSelfStudy/src/CSA_Class_Exercise/Weekly_Produce_List");
     customerX.randomBox();
-    customerX.displayConents();
+    customerX.displayContents();
     customerX.selectBox();
     return 0;
 }
 
-void BoxOfProduce::displayProduceList(std::string filePath) {
+void BoxOfProduce::displayProduceList(const std::string filePath) {
     std::ifstream produceList;
     produceList.open(filePath);
     std::string list;
@@ -58,7 +79,7 @@ void BoxOfProduce::displayProduceList(std::string filePath) {
 }
 
 std::string BoxOfProduce::getProduceList() {
-    std::cout << "Please enter the file path for this weeks produce list  > ";
+    std::cout << std::endl << "Please enter the file path for this weeks produce list  > ";
     std::string filePath;
     std::cin >> filePath;
     return (filePath);
@@ -71,7 +92,7 @@ void BoxOfProduce::randomBox() {
     }
 }
 
-void BoxOfProduce::displayConents() {
+void BoxOfProduce::displayContents() {
     std::cout << std::endl << "THIS WEEKS BOX" << std::endl;
     std::cout << "-------------------------" << std::endl;
     for (std::string x : boxOfProduce) {
@@ -80,19 +101,22 @@ void BoxOfProduce::displayConents() {
 }
 
 void BoxOfProduce::selectBox() {
-    char c0ntinue = 'y';
+    std::string c0ntinue = "y";
     std::cout << std::endl << "Would you like to alter your box this week? y/n  > ";
     std::cin >> c0ntinue;
-    c0ntinue = char(tolower(c0ntinue));
-    while(c0ntinue == 'y') {
+    c0ntinue = y_n_Error_Checking(c0ntinue);
+    while (c0ntinue == "y") {
         std::cout << std::endl << "Which item would you like to replace?" << std::endl;
         std::string replace;
         std::cin >> replace;
+        replace = BoxOfProduce::format_Input(replace);
         std::cout << std::endl << "What would you like to replace it with?  > ";
         std::string replacement;
         std::cin >> replacement;
+        replacement = BoxOfProduce::format_Input(replacement);
+        BoxOfProduce::format_Input(replacement);
         for (int i = 0; i < 3; i++) {
-            if (boxOfProduce[i] == replace) {
+            if ((boxOfProduce[i] == replace)) {
                 boxOfProduce[i] = replacement;
                 break;
             }
@@ -102,13 +126,39 @@ void BoxOfProduce::selectBox() {
         }
         std::cout << std::endl << "Would you like to alter anything else? y/n  > ";
         std::cin >> c0ntinue;
-        c0ntinue = char(tolower(c0ntinue));
+        c0ntinue = BoxOfProduce::y_n_Error_Checking(c0ntinue);
+        for (int i = 0; i < c0ntinue.length(); i++) {
+            c0ntinue[i] = char(tolower(c0ntinue[i]));
+        }
     }
-    if (c0ntinue == 'n') {
+    if (c0ntinue == "n") {
         std::cout << std::endl << "GoodBye!" << std::endl;
     }
 }
 
+std::string BoxOfProduce::format_Input(std::string user_Input) {
+    user_Input[0] = char(toupper(user_Input[0]));
+    for (int i = 1; i < user_Input.length(); i++) {
+        user_Input[i] = char(tolower(user_Input[i]));
+    }
+    return (user_Input);
+}
+
+std::string BoxOfProduce::y_n_Error_Checking(std::string c0ntinue){
+    for (int i = 0; i < c0ntinue.length(); i++) {
+        c0ntinue[i] = char(tolower(c0ntinue[i]));
+    }
+    while((c0ntinue != "y") && (c0ntinue != "n")) {
+        if ((c0ntinue != "y") && (c0ntinue != "n")) {
+            std::cout << std::endl << "Please enter y/n  > ";
+            std::cin >> c0ntinue;
+            for (int i = 0; i < c0ntinue.length(); i++) {
+                c0ntinue[i] = char(tolower(c0ntinue[i]));
+            }
+        }
+    }
+    return(c0ntinue);
+}
 
 
 
