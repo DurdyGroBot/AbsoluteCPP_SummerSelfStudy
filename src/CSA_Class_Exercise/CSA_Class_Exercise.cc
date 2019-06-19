@@ -56,7 +56,7 @@ public:
 
 int main(int argc, char *argv[]) {
     BoxOfProduce customerX;
-    //std::string filePath = customerX.getProduceList();
+    //std::string filePath = customerX.getProduceList(); optional feature to have alternative list filePaths entered by user
     customerX.displayProduceList("/Users/durdy/CLionProjects/AbsoluteCPP_SummerSelfStudy/src/CSA_Class_Exercise/Weekly_Produce_List");
     customerX.randomBox();
     customerX.displayContents();
