@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <vector>
 
 class BoxOfProduce {
 
@@ -40,38 +41,48 @@ private:
 public:
     BoxOfProduce();
 
-    int generateBoxOfProduce();
+    int generateBoxOfProduce(std::vector<BoxOfProduce> customer, std::string c0ntinue);
 
     void randomBox();
     //generates an array of strings from a list of produce
 
-    void selectBox();
+    void selectBox(std::vector<BoxOfProduce> customerX);
     //allows user to alter the randomly generated box
 
-    void displayContents();
+    void displayContents(int n);
     //displays whats in the box
 
-    void displayProduceList(std::string filePath);
+    void displayProduceList(const std::string& filePath);
     //displays a produce list from a given filePath
 
     std::string getProduceList();
     //prompts user for filePath to produce list
+
 };
 
 int main(int argc, char *argv[]) {
     std::cout << "\nWelcome to the CSA app!\n";
     std::string c0ntinue = "y";
-    BoxOfProduce customerX;
-    customerX.displayProduceList("/Users/durdy/CLionProjects/AbsoluteCPP_SummerSelfStudy/src/CSA_Class_Exercise/Weekly_Produce_List");
-    while(c0ntinue == "y"){
-        customerX.displayContents();
-        std::cout << "\nWould you like to continue? y/n  > ";
+    std::vector<BoxOfProduce> customerX(1);
+    while (c0ntinue == "y") {
+        int box_Counter = 1;//sets counter for console output to specify Box of Produce number
+        for(BoxOfProduce box : customerX){
+            box.displayContents(box_Counter);
+            box_Counter++;
+        }
+        std::cout << "\nWould you like to make another box? y/n  > ";
         std::cin >> c0ntinue;
+        if(c0ntinue == "y"){
+            customerX.emplace_back(BoxOfProduce());
+        } else {
+            BoxOfProduce box;
+            box.selectBox(customerX);
+        }
     }
     return 0;
 }
 
-void BoxOfProduce::displayProduceList(const std::string filePath) {
+void BoxOfProduce::displayProduceList(const std::string& filePath) {
     std::ifstream produceList;
     produceList.open(filePath);
     std::string list;
@@ -99,21 +110,24 @@ void BoxOfProduce::randomBox() {
     }
 }
 
-void BoxOfProduce::displayContents() {
-    std::cout << std::endl << "THIS WEEKS BOX" << std::endl;
+void BoxOfProduce::displayContents(int n) {
+    std::cout << std::endl << "BOX " << n << std::endl;
     std::cout << "-------------------------" << std::endl;
     for (std::string x : boxOfProduce) {
         std::cout << '-' << x << std::endl;
     }
 }
 
-void BoxOfProduce::selectBox() {
+void BoxOfProduce::selectBox(const std::vector<BoxOfProduce> customerX) {
     std::string c0ntinue = "y";
-    std::cout << std::endl << "Would you like to alter your box this week? y/n  > ";
+    std::cout << std::endl << "Would you like to alter your boxes this week? y/n  > ";
     std::cin >> c0ntinue;
     c0ntinue = y_n_Error_Checking(c0ntinue);
     while (c0ntinue == "y") {
-        std::cout << std::endl << "Which item would you like to replace?" << std::endl;
+        std::cout << "\nWhich box number would you like to alter?  > ";
+        uint box_Number;
+        std::cin >> box_Number;
+        std::cout << "\nWhich item would you like to replace?" << std::endl;
         std::string replace;
         std::cin >> replace;
         replace = BoxOfProduce::format_Input(replace);
@@ -167,18 +181,18 @@ std::string BoxOfProduce::y_n_Error_Checking(std::string c0ntinue){
     return(c0ntinue);
 }
 
-int BoxOfProduce::generateBoxOfProduce(){
-    std::cout << "\nHow many boxes of produce would you like this week?\n\n>";
-    int x = 0;
-    std::cin >> x;
-    return(x);
+int BoxOfProduce::generateBoxOfProduce(std::vector<BoxOfProduce> customer, std::string c0ntinue){
+
 }
 
 BoxOfProduce::BoxOfProduce() {
-    std::srand(std::time(0));//use current time as seed for random generator!
-    for (int i = 0; i < 3; i++) {
-        boxOfProduce[i] = weeklyProduceSelection[(std::rand() % 5)];
+    std::ifstream produceList;
+    produceList.open("/Users/durdy/CLionProjects/AbsoluteCPP_SummerSelfStudy/src/CSA_Class_Exercise/Weekly_Produce_List");
+    std::string list;
+    for (int i = 0; produceList >> list; i++) {
+        weeklyProduceSelection[i] = list;
     }
+    BoxOfProduce::randomBox();
 }
 
 
